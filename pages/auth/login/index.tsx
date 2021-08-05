@@ -1,7 +1,17 @@
-export default function login(): JSX.Element {
+import { useRouter } from 'next/router';
+import { Login } from '../../../containers';
+
+const LoginForm = (): JSX.Element => {
+  const router = useRouter();
+  const {
+    // callback,
+    username,
+  } = router.query;
   return (
-    <h1>
-      Login es mi login
-    </h1>
+    <p>
+      <Login username={username as string} />
+    </p>
   );
-}
+};
+
+export default LoginForm;
