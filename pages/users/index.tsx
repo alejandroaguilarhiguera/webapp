@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { UserService } from '../../services/API';
 import { User } from '../../types';
 
@@ -7,9 +8,12 @@ export function UserFunction(): JSX.Element {
   const userService = new UserService();
 
   useEffect(() => {
-    userService.getAll().then((data) => {
-      setUsers(data);
-    });
+    function test() {
+      userService.getAll().then((data) => {
+        setUsers(data);
+      });
+    }
+    test();
   });
 
   return (
@@ -19,7 +23,12 @@ export function UserFunction(): JSX.Element {
       <ul>
         {
           users.map((user) => (
-            <li key={user.id}>{user.email}</li>
+            <li key={user.id}>
+              <Link href={`/users/${user.id}`}>
+                {user.email}
+              </Link>
+
+            </li>
           ))
         }
 
