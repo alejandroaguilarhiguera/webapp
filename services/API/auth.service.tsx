@@ -25,6 +25,14 @@ export class AuthService {
       return error;
     }
   }
+  async signUp(email: string, password: string, displayName?: string): Promise<Session> {
+    try {
+      const response = await axios.post('/auth/sign-up', { email, password, displayName });
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default AuthService;
