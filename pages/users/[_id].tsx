@@ -9,9 +9,9 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 const UserForm = (): JSX.Element => {
   const router = useRouter();
-  const { id } = router.query;
+  const { _id } = router.query;
 
-  const { data: user, error } = useSWR(`/users/${id}`, fetcher);
+  const { data: user, error } = useSWR(`/users/${_id}`, fetcher);
 
   if (error) {
     return (

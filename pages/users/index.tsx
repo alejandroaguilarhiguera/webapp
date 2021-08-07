@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React from 'react';
 import Link from 'next/link';
-import { UserService } from '../../services/API';
-import { User } from '../../types';
+import useSWR from 'swr';
+import axios from 'axios';
+// import { UserService } from '../../services/API';
+// import { User } from '../../types';
+
+// const userService = new UserService();
+const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export function UserFunction(): JSX.Element {
-  const [users, setUsers] = useState<User[]>([] as User[]);
-  const userService = new UserService();
+  const { data: users = [], error } = useSWR('/users', fetcher);
 
-  useEffect(() => {
-    function test() {
-      userService.getAll().then((data) => {
-        setUsers(data);
-      });
-    }
-    test();
-  });
-
+  if (error) {
+    return (
+      <h1>
+        Error
+        {' '}
+        {error}
+      </h1>
+    );
+  }
   return (
     <div>
 
@@ -23,8 +28,8 @@ export function UserFunction(): JSX.Element {
       <ul>
         {
           users.map((user) => (
-            <li key={user.id}>
-              <Link href={`/users/${user.id}`}>
+            <li key={user._id}>
+              <Link href={`/users/${user._id}`}>
                 {user.email}
               </Link>
 
