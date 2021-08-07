@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { API_URL } from '../config';
 
 axios.defaults.baseURL = API_URL;

@@ -3,6 +3,8 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
 export default function Home(): JSX.Element {
+  // TODO: Redirecionar al /dashboard (Si se tiene usuario)
+  // sinó entonces redirecionar a auth/login
   return (
     <div className={styles.container}>
       <Head>
