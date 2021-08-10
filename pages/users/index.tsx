@@ -3,24 +3,11 @@ import React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import axios from 'axios';
-// import { UserService } from '../../services/API';
-// import { User } from '../../types';
 
-// const userService = new UserService();
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export function UserFunction(): JSX.Element {
-  const { data: users = [], error } = useSWR('/users', fetcher);
-
-  if (error) {
-    return (
-      <h1>
-        Error
-        {' '}
-        {error}
-      </h1>
-    );
-  }
+  const { data: users = [] } = useSWR('/users', fetcher);
   return (
     <div>
 

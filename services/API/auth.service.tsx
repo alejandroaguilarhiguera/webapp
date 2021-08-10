@@ -43,6 +43,10 @@ export class AuthService {
   async logout(): Promise<void> {
     await AsyncStorage.setItem('@session', '{}');
   }
+  async getSession(): Promise<Session> {
+    const session = await AsyncStorage.getItem('@session');
+    return JSON.parse(session || '{}');
+  }
 }
 
 export default AuthService;

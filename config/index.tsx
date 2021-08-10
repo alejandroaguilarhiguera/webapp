@@ -1,5 +1,13 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const GITLAB_CLIENT_ID = process.env.NEXT_PUBLIC_GITLAB_CLIENT_ID;
+export const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID;
+export const BITBUCKET_CLIENT_ID = process.env.NEXT_PUBLIC_BITBUCKET_CLIENT_ID;
+export const WEBAPP_URL = process.env.NEXT_PUBLIC_WEBAPP_URL;
 
 export default {
   API_URL,
+  WEBAPP_URL,
+  GITLAB_CLIENT_ID,
+  GITHUB_CLIENT_ID,
+  BITBUCKET_CLIENT_ID,
 };
