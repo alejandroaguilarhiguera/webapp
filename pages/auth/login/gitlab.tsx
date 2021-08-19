@@ -1,27 +1,31 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import useSWR from 'swr';
-import axios from 'axios';
-// import { AuthService } from '../../../services/API';
+import React, { useEffect } from 'react';
+
+import { AuthService } from '../../../services/API';
 
 export interface Prop {
-  code: string;
+  code?: string;
 }
-const fetcher = (url) => axios.get(url).then((res) => res.data);
+
+const authService = new AuthService();
 
 const GitlabForm = (): JSX.Element => {
   const router = useRouter();
   const {
     code,
   }: Prop = router.query;
-  if (code) {
-    const { data: session = null } = useSWR(`/auth/login/gitlab?code=${code}`, fetcher);
-    console.log('🚀 ~ file: gitlab.tsx ~ line 15 ~ code', code);
-    console.log('🚀 ~ file: gitlab.tsx ~ line 15 ~ code', session);
-  }
-  // if (session?.token) {
-  //   redirect /dashboard
-  // }
+
+  useEffect(() => {
+    async function init() {
+      const session = await authService.oauth('gitlab', code);
+      if (session?.token) {
+        router.push('/dashboard');
+      }
+    }
+    if (code) {
+      init();
+    }
+  }, [code, router]);
   return (
     <div />
   );

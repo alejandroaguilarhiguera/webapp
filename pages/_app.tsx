@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from '../components/Navbar';
+import { Menu } from '../components';
 import { AuthService } from '../services/API';
 import { API_URL } from '../config';
 
@@ -46,7 +46,7 @@ axios.interceptors.response.use((response) => {
 function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <main>
-      <Navbar />
+      <Menu />
       <Component {...pageProps} />
     </main>
   );

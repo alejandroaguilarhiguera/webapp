@@ -3,7 +3,7 @@ import ModalFooter from 'react-bootstrap/ModalFooter';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
-export const NavbarComponent = (): JSX.Element => {
+export const Footer = (): JSX.Element => {
   return (
 
     <ModalFooter className={styles.footer}>
@@ -17,4 +17,4 @@ export const NavbarComponent = (): JSX.Element => {
   );
 };
 
-export default NavbarComponent;
+export default Footer;

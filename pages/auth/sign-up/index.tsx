@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { InputEmail, InputPassword, InputPhone } from '../../../components';
 import { AuthService } from '../../../services/API';
 
 export interface Prop {
@@ -15,6 +16,8 @@ export default function SignUp(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
 
   const {
     callback,
@@ -48,24 +51,25 @@ export default function SignUp(): JSX.Element {
           />
         </Form.Group>
 
-        <Form.Group controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            autoFocus
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+        <InputEmail
+          onChange={setEmail}
+          value={email}
+        />
+        <InputPhone
+          onChange={setPhone}
+          value={phone}
+        />
+        <InputPassword
+          onChange={setPassword}
+          value={password}
+        />
+        <InputPassword
+          controlId="confirmPassword"
+          label="Confirmación de contraseña"
+          onChange={setConfirmPassword}
+          value={confirmPassword}
+        />
+
         <Button block size="lg" type="submit" disabled={!validateForm()}>
           Registrar
         </Button>

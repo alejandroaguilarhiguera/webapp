@@ -40,6 +40,17 @@ export class AuthService {
       return error;
     }
   }
+  async oauth(provider: string, code: string): Promise<Session> {
+    try {
+      const response = await axios.get(`/auth/login/${provider}?code=${code}`);
+      if (response?.data.token) {
+        await AsyncStorage.setItem('@session', JSON.stringify(response.data));
+      }
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
   async logout(): Promise<void> {
     await AsyncStorage.setItem('@session', '{}');
   }
