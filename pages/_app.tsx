@@ -1,8 +1,8 @@
 import { AppProps } from 'next/app';
 import axios from 'axios';
+import '../styles/globals.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Menu } from '../components';
 import { AuthService } from '../services/API';
 import { API_URL } from '../config';

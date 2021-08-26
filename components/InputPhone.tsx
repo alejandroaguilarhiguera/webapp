@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Form from 'react-bootstrap/Form';
 import errorStyles from '../styles/Error.module.css';
 
 interface Prop {
@@ -38,11 +37,13 @@ export const InputPhone = (prop: Prop): JSX.Element => {
     }
   }
   return (
-    <Form.Group style={{ 'padding-top': '10px' }} controlId={controlId}>
-      <Form.Label>{label}</Form.Label>
-      <Form.Control
-        autoFocus
+    <div>
+      <span>{label}</span>
+      <input
         type="text"
+        id="phone"
+        name="phone"
+        className={`shadow appearance-none border ${showError && error && 'border-red-500'} rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
         value={value}
         onKeyPress={(e) => validate(e)}
         onChange={(e) => onPhoneChanged(e.target.value)}
@@ -50,15 +51,15 @@ export const InputPhone = (prop: Prop): JSX.Element => {
       />
       {
         showError && error
-          && (
-          <Form.Label className={errorStyles.label}>
-            {error}
-          </Form.Label>
-          )
+            && (
+              <p className="text-red-500 text-xs italic">
+                {error}
+              </p>
+            )
 
       }
 
-    </Form.Group>
+    </div>
   );
 };
 

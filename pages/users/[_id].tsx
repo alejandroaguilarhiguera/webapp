@@ -1,17 +1,18 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import axios from 'axios';
-// import { UserService } from '../../services/API';
-// import { User } from '../../types';
+import { UserService } from '../../services/API';
 
-const fetcher = (url) => axios.get(url).then((res) => res.data);
+const userService = new UserService();
 
 const UserForm = (): JSX.Element => {
   const router = useRouter();
   const { _id } = router.query;
 
-  const { data: user, error } = useSWR(`/users/${_id}`, fetcher);
+  const { data: user, error } = useSWR(
+    _id,
+    (id) => userService.show(id).then((payload) => payload),
+  );
 
   if (error) {
     return (
@@ -25,6 +26,7 @@ const UserForm = (): JSX.Element => {
   }
 
   return (
+
     <p>
       {user?.email}
     </p>

@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
+import useSWR from 'swr';
 import { AuthService } from '../services/API';
 
 const authService = new AuthService();
@@ -10,30 +7,29 @@ export const Menu = (): JSX.Element => {
     await authService.logout();
   }
 
-  const [user, setUser] = useState(null);
+  const { data: session = {} } = useSWR(
+    'session',
+    () => authService.getSession().then((data) => data),
+  );
 
-  useEffect(() => {
-    authService.getSession().then((session) => {
-      setUser(session.user);
-    }).catch((error) => {
-      console.log({ error });
-    });
-  });
-  if (!user) return <div />;
+  if (!session) return <div />;
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand href="/dashboard">Tablero</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/users">Usuarios</Nav.Link>
-            <Nav.Link href="/products">Productos</Nav.Link>
-            <Nav.Link onClick={onLogout} href="/auth/login">Salir</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div>
+      <span>Menu pendiente</span>
+    </div>
+    // <Navbar bg="light" expand="lg">
+    //   <Container>
+    //     <Navbar.Brand href="/dashboard">Tablero</Navbar.Brand>
+    //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    //     <Navbar.Collapse id="basic-navbar-nav">
+    //       <Nav className="me-auto">
+    //         <Nav.Link href="/users">Usuarios</Nav.Link>
+    //         <Nav.Link href="/products">Productos</Nav.Link>
+    //         <Nav.Link onClick={onLogout} href="/auth/login">Salir</Nav.Link>
+    //       </Nav>
+    //     </Navbar.Collapse>
+    //   </Container>
+    // </Navbar>
   );
 };
 

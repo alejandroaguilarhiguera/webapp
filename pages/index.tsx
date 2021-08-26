@@ -1,9 +1,21 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import { AuthService } from '../services/API';
+
+const authService = new AuthService();
 
 export default function Home(): JSX.Element {
-  // TODO: Redirecionar al /dashboard (Si se tiene usuario)
-  // sinó entonces redirecionar a auth/login
+  const router = useRouter();
+
+  useEffect(() => {
+    authService.getSession().then((session) => {
+      if (!session?.token) router.push('/auth/login?callback=/dashboard');
+      else if (session.token) router.push('/dashboard');
+    });
+  }, [router]);
+
   return (
     <div className={styles.container}>
       <Head>

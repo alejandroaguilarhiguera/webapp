@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import errorStyles from '../styles/Error.module.css';
 
 interface Prop {
   controlId?: string;
@@ -10,7 +8,7 @@ interface Prop {
 }
 
 export const InputPassword = (prop: Prop): JSX.Element => {
-  const { value, onChange, label = 'Contraseña', controlId = 'password' } = prop;
+  const { value, onChange, label = 'Contraseña' } = prop;
   const [error, setError] = useState(null);
   const [showError, setShowError] = useState(false);
 
@@ -24,23 +22,29 @@ export const InputPassword = (prop: Prop): JSX.Element => {
   }
 
   return (
-    <Form.Group style={{ 'padding-top': '10px' }} controlId={controlId}>
-      <Form.Label>{label}</Form.Label>
-      <Form.Control
+
+    <div className="mb-6">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+        {label}
+      </label>
+      <input
+        className={`shadow appearance-none border ${showError && error && 'border-red-500'} rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
+        id="password"
         type="password"
+        placeholder="******************"
         value={value}
         onChange={(e) => onPasswordChanged(e.target.value)}
         onBlur={() => setShowError(true)}
       />
       {
         showError && error && (
-        <Form.Label className={errorStyles.label}>
+        <p className="text-red-500 text-xs italic">
           {error}
-        </Form.Label>
+        </p>
         )
       }
+    </div>
 
-    </Form.Group>
   );
 };
 

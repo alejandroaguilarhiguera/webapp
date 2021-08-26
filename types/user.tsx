@@ -1,7 +1,8 @@
 export interface User {
-    id: number;
-    name: string;
-    lastName: string;
+    _id: number;
+    displayName: string;
+    avatar: string;
+    phoneNumber: string;
     email: string;
     enabled: boolean;
     confirmed: boolean;

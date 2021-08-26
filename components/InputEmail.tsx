@@ -1,6 +1,5 @@
 import validator from 'email-validator';
 import { useState } from 'react';
-import Form from 'react-bootstrap/Form';
 import errorStyles from '../styles/Error.module.css';
 
 interface Prop {
@@ -11,7 +10,7 @@ interface Prop {
 }
 
 export const InputEmail = (prop: Prop): JSX.Element => {
-  const { value, onChange, label = 'Email', controlId = 'email' } = prop;
+  const { value, onChange, label = 'Email' } = prop;
   const [error, setError] = useState(null);
   const [showError, setShowError] = useState(false);
   function onEmailChanged(email: string) {
@@ -23,10 +22,15 @@ export const InputEmail = (prop: Prop): JSX.Element => {
     }
   }
   return (
-    <Form.Group style={{ 'padding-top': '10px' }} controlId={controlId}>
-      <Form.Label>{label}</Form.Label>
-      <Form.Control
-        autoFocus
+    <div className="mb-6">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+        {label}
+      </label>
+      <input
+        className={`shadow appearance-none border ${showError && error && 'border-red-500'} rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+        id="email"
+        name="email"
+        placeholder="example@domine.com"
         type="email"
         value={value}
         onChange={(e) => onEmailChanged(e.target.value)}
@@ -35,14 +39,14 @@ export const InputEmail = (prop: Prop): JSX.Element => {
       {
         showError && error
             && (
-            <Form.Label className={errorStyles.label}>
-              {error}
-            </Form.Label>
+              <p className="text-red-500 text-xs italic">
+                {error}
+              </p>
             )
 
       }
+    </div>
 
-    </Form.Group>
   );
 };
 
