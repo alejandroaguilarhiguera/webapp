@@ -1,18 +1,18 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import useSWR from 'swr';
-import axios from 'axios';
+/* eslint-disable camelcase */
+// import { useRouter } from 'next/router';
+import React from 'react';
 // import { AuthService } from '../../../services/API';
 
 export interface Prop {
-  access_token: string;
+  access_token?: string;
 }
 
 const BitbucketForm = (): JSX.Element => {
-  const router = useRouter();
-  const {
-    access_token,
-  }: Prop = router.query;
+  // const router = useRouter();
+  // const {
+  //   access_token,
+  // }: Prop = router.query;
+  // console.log('TODO: Hay problemas para conseguirlo', access_token);
   // if (session?.token) {
   //   redirect /dashboard
   // }

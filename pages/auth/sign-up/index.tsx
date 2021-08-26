@@ -48,12 +48,11 @@ export default function SignUp(): JSX.Element {
     <div className="container w-full max-w-xs">
       <form onSubmit={handleSubmit}>
         <div>
-          <label
+          <span
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="displayName"
           >
             Nombre
-          </label>
+          </span>
           <input
             type="text"
             id="displayName"

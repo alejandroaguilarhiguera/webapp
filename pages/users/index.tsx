@@ -26,7 +26,7 @@ export function UserFunction(): JSX.Element {
           <div>
             <div className="flex items-center justify-between my-4">
               <div className="w-16">
-                <img className="w-12 h-12 rounded-full" src={user.avatar} />
+                {/* <img className="w-12 h-12 rounded-full" src={user.avatar} /> */}
                 {/*
                 FIXME: HAcer que funcione esto
                 <Image

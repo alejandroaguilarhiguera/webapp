@@ -44,7 +44,7 @@ export const InputPhoneCode = (prop: Prop): JSX.Element => {
       />
 
       { (new Array(size)).fill(size).map((_, index) => (
-        <div style={{ 'padding-right': '0.1em' }}>
+        <div>
 
           <div className={`w-10 h-10 rounded border-2 border-${index < code.length ? 'gray' : 'blue'}-900`} />
         </div>

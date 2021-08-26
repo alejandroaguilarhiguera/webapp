@@ -1,6 +1,5 @@
 import validator from 'email-validator';
 import { useState } from 'react';
-import errorStyles from '../styles/Error.module.css';
 
 interface Prop {
   label?: string;
