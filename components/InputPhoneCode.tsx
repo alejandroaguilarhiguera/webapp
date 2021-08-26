@@ -43,7 +43,7 @@ export const InputPhoneCode = (prop: Prop): JSX.Element => {
         onChange={(e) => onPhoneChanged(e.target.value)}
       />
 
-      { (new Array(size)).fill().map((_, index) => (
+      { (new Array(size)).fill(size).map((_, index) => (
         <div style={{ 'padding-right': '0.1em' }}>
 
           <div className={`w-10 h-10 rounded border-2 border-${index < code.length ? 'gray' : 'blue'}-900`} />
