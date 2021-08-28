@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+// import Link from 'next/link';
 import React, { useState } from 'react';
 import FooterModal from '../../../components/Footer';
 import { InputEmail, InputPassword } from '../../../components';
-import {
-  // URL_BITBUCKET,
-  URL_GITHUB,
-  URL_GITLAB,
-} from '../../../config';
+// import {
+//   URL_BITBUCKET,
+//   URL_GITHUB,
+//   URL_GITLAB,
+// } from '../../../config';
 import { AuthService } from '../../../services/API';
 
 const authService = new AuthService();
