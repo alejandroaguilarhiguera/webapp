@@ -3,9 +3,9 @@ import { AuthService } from '../services/API';
 
 const authService = new AuthService();
 export const Menu = (): JSX.Element => {
-  async function onLogout() {
-    await authService.logout();
-  }
+  // async function onLogout() {
+  //   await authService.logout();
+  // }
 
   const { data: session = {} } = useSWR(
     'session',

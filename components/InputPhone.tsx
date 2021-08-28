@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import errorStyles from '../styles/Error.module.css';
 
 interface Prop {
   label?: string;
@@ -9,7 +8,7 @@ interface Prop {
 }
 
 export const InputPhone = (prop: Prop): JSX.Element => {
-  const { value, onChange, label = 'Teléfono', controlId = 'phone' } = prop;
+  const { value, onChange, label = 'Teléfono' } = prop;
   const [error, setError] = useState(null);
   const [showError, setShowError] = useState(false);
   function onPhoneChanged(phone: string) {
