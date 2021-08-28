@@ -125,6 +125,7 @@ const LoginForm = (): JSX.Element => {
         <br />
         <br />
         <br />
+        <br />
 
       </div>
       <FooterModal />
