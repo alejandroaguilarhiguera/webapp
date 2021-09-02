@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import FooterModal from '../../../components/Footer';
 import { AuthService } from '../../../services/API';
 
 const authService = new AuthService();
@@ -28,7 +27,6 @@ const ConfirmEmailForm = (): JSX.Element => {
   return (
     <div className="container">
       <span>... redirect</span>
-      <FooterModal />
     </div>
   );
 };

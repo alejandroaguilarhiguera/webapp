@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import FooterModal from '../../../components/Footer';
 import { InputPhoneCode } from '../../../components';
 import { AuthService } from '../../../services/API';
 import { INTENTS_CODE_PHONE } from '../../../config';
@@ -46,7 +45,6 @@ const ConfirmPhoneForm = (): JSX.Element => {
         <InputPhoneCode size={sizeCodePhone} value={phoneCode} onChange={setPhoneCode} />
 
       </form>
-      <FooterModal />
     </div>
   );
 };

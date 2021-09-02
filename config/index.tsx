@@ -7,7 +7,7 @@ export const URL_GITHUB = process.env.NEXT_PUBLIC_URL_GITHUB;
 export const URL_BITBUCKET = process.env.NEXT_PUBLIC_URL_BITBUCKET;
 export const WEBAPP_URL = process.env.NEXT_PUBLIC_WEBAPP_URL;
 export const INTENTS_CODE_PHONE = process.env.NEXT_PUBLIC_INTENTS_CODE_PHONE;
-
+export const { NODE_ENV } = process.env;
 export const SESSION_LOCAL_STORAGE = '@session';
 
 export const API_AUTH_LOGIN = '/auth/login';
@@ -32,4 +32,5 @@ export default {
   URL_BITBUCKET,
   INTENTS_CODE_PHONE,
   SESSION_LOCAL_STORAGE,
+  NODE_ENV,
 };

@@ -48,16 +48,9 @@ export const InputPhone = (prop: Prop): JSX.Element => {
         onChange={(e) => onPhoneChanged(e.target.value)}
         onBlur={() => setShowError(true)}
       />
-      {
-        showError && error
-            && (
-              <p className="text-red-500 text-xs italic">
-                {error}
-              </p>
-            )
-
-      }
-
+      <p className={`${showError && error ? '' : 'hidden'} text-red-500 text-xs italic`}>
+        {error}
+      </p>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import FooterModal from '../../../components/Footer';
-import { InputPassword } from '../../../components';
+import { InputPassword, ButtonSubmit } from '../../../components';
 import { AuthService } from '../../../services/API';
 
 const authService = new AuthService();
@@ -18,15 +17,18 @@ const RecoverForm = (): JSX.Element => {
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     const session = await authService.renewPassword(hash, password);
     if (session?.token) {
       router.push('/dashboard');
     } else {
       router.push('/auth/login?callback=/dashboard');
     }
+    setLoading(false);
   }
 
   return (
@@ -36,20 +38,19 @@ const RecoverForm = (): JSX.Element => {
           onChange={setPassword}
           value={password}
         />
+
         <InputPassword
-          controlId="confirmPassword"
           label="Confirmación de contraseña"
           onChange={setConfirmPassword}
           value={confirmPassword}
         />
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          Guardar contraseña
-        </button>
+
+        <ButtonSubmit
+          label="Guardar contraseña"
+          loading={loading}
+        />
+
       </form>
-      <FooterModal />
     </div>
   );
 };

@@ -1,11 +1,15 @@
+import useSWR from 'swr';
 import { AppProps } from 'next/app';
 import axios from 'axios';
 import '../styles/globals.css';
 import { toast } from 'react-toastify';
+import FooterModal from '../components/Footer';
+
 import 'react-toastify/dist/ReactToastify.css';
-import { Menu } from '../components';
+import { Menu, TextBox, Navbar } from '../components';
+
 import { AuthService } from '../services/API';
-import { API_URL } from '../config';
+import { API_URL, NODE_ENV, SESSION_LOCAL_STORAGE } from '../config';
 
 toast.configure();
 axios.defaults.baseURL = API_URL;
@@ -42,12 +46,27 @@ axios.interceptors.response.use((response) => {
   toast.error('Ocurrió un error en la petición');
   return Promise.reject(error);
 });
-
 function App({ Component, pageProps }: AppProps): JSX.Element {
+  const { data: session } = useSWR(
+    SESSION_LOCAL_STORAGE,
+    () => authService.getSession().then((data) => data),
+  );
   return (
+
     <main>
-      <Menu />
-      <Component {...pageProps} />
+      { NODE_ENV === 'development' && (
+        <TextBox
+          type="warning"
+          label="Entorno de pruebas"
+          description={JSON.stringify(session)}
+        />
+      )}
+      <Navbar _id={session?.user?._id} displayName={session?.user?.role /* TODO: displayName */} />
+      <div className="flex h-screen">
+        <Menu user={session?.user} />
+        <Component {...pageProps} />
+      </div>
+      <FooterModal />
     </main>
   );
 }

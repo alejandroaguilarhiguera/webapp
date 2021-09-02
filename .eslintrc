@@ -32,6 +32,11 @@
       "@typescript-eslint"
   ],
   "rules": {
+
+
+    "jsx-a11y/anchor-is-valid": "off",
+
+
       "security/detect-object-injection": 0,
       "security/detect-non-literal-fs-filename": 0, // No se requiere
       "security/detect-non-literal-regexp": 0, // Pendiente investigar

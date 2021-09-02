@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { InputEmail, InputPassword, InputPhone } from '../../../components';
+import { InputEmail, InputPassword, InputPhone, ButtonSubmit } from '../../../components';
 import { AuthService, NewUser, Session, ResponseVerificationPhone } from '../../../services/API';
 
 export interface Prop {
@@ -14,6 +14,7 @@ export default function SignUp(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const {
@@ -33,6 +34,7 @@ export default function SignUp(): JSX.Element {
       password,
       captcha: 'TODO:_agregar_captcha',
     };
+    setLoading(true);
     const result = await authService.signUp(user);
     const session = result as Session;
     if (session?.token) {
@@ -42,10 +44,11 @@ export default function SignUp(): JSX.Element {
     if (responseVerificationPhone.verificationId) {
       router.push(`/auth/confirm-phone/${responseVerificationPhone.verificationId}`);
     }
+    setLoading(false);
   }
 
   return (
-    <div className="container w-full max-w-xs">
+    <div className="w-full max-w-xs">
       <form onSubmit={handleSubmit}>
         <div>
           <span
@@ -76,19 +79,16 @@ export default function SignUp(): JSX.Element {
           value={password}
         />
         <InputPassword
-          controlId="confirmPassword"
           label="Confirmación de contraseña"
           onChange={setConfirmPassword}
           value={confirmPassword}
         />
 
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
+        <ButtonSubmit
+          label="Registrar"
+          loading={loading}
           disabled={!validateForm()}
-        >
-          Registrar
-        </button>
+        />
 
       </form>
     </div>

@@ -1,22 +1,24 @@
 import { useState } from 'react';
 
 interface Prop {
-  controlId?: string;
   label?: string;
   value: string;
   onChange: (value: string) => void;
+  valid?: (value: boolean) => void;
 }
 
 export const InputPassword = (prop: Prop): JSX.Element => {
-  const { value, onChange, label = 'Contraseña' } = prop;
+  const { value, onChange, label = 'Contraseña', valid } = prop;
   const [error, setError] = useState(null);
   const [showError, setShowError] = useState(false);
 
   function onPasswordChanged(password: string) {
     onChange(password);
-    if (password.length < 5) {
+    if (password.length < 6) {
+      valid(false);
       setError(`La ${label.toLowerCase()} tiene que ser mayor a 5 caracteres`);
     } else {
+      valid(true);
       setError('');
     }
   }
@@ -36,13 +38,10 @@ export const InputPassword = (prop: Prop): JSX.Element => {
         onChange={(e) => onPasswordChanged(e.target.value)}
         onBlur={() => setShowError(true)}
       />
-      {
-        showError && error && (
-        <p className="text-red-500 text-xs italic">
-          {error}
-        </p>
-        )
-      }
+      <p className={`${showError && error ? '' : 'hidden'} text-red-500 text-xs italic`}>
+
+        {error}
+      </p>
     </div>
 
   );

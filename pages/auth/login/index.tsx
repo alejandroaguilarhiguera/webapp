@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import FooterModal from '../../../components/Footer';
-import { InputEmail, InputPassword } from '../../../components';
+import { InputEmail, InputPassword, ButtonSubmit } from '../../../components';
 import {
   // URL_BITBUCKET,
   URL_GITHUB,
@@ -22,42 +21,60 @@ const LoginForm = (): JSX.Element => {
     callback,
     username = '',
   }: Prop = router.query;
+
   const [email, setEmail] = useState(username);
+  const [emailValid, setEmailValid] = useState(false);
   const [password, setPassword] = useState('');
+  const [passwordValid, setPasswordValid] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return emailValid && passwordValid;
   }
-
-  async function handleSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
-
+    if (!validateForm()) {
+      return;
+    }
+    setLoading(true);
     const session = await authService.login(email, password);
-
+    setLoading(false);
     if (session?.token) {
       router.push(callback || '/dashboard');
     }
   }
+
   return (
     <div className="">
       <div className="w-full max-w-md">
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+
+        <form
+          onSubmit={onSubmit}
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        >
+
           <InputEmail
             onChange={setEmail}
+            valid={setEmailValid}
+            label="Email"
             value={email}
           />
+
           <InputPassword
             onChange={setPassword}
+            label="Contraseña"
             value={password}
+            valid={setPasswordValid}
+
           />
           <div className="flex items-center justify-between">
 
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
+            <ButtonSubmit
+              label="Entrar"
+              loading={loading}
               disabled={!validateForm()}
-            >
-              Entrar
-            </button>
+            />
 
             <Link href="/auth/recover" passHref>
               <span
@@ -128,7 +145,6 @@ const LoginForm = (): JSX.Element => {
         <br />
 
       </div>
-      <FooterModal />
     </div>
   );
 };

@@ -1,28 +1,31 @@
 import validator from 'email-validator';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-interface Prop {
+interface Props {
   label?: string;
   controlId?: string;
   value: string;
   onChange: (value: string) => void;
+  valid: (value: boolean) => void;
 }
 
-export const InputEmail = (prop: Prop): JSX.Element => {
-  const { value, onChange, label = 'Email' } = prop;
+export const InputEmail = (prop: Props): JSX.Element => {
+  const { value, onChange, label = 'Email', valid } = prop;
   const [error, setError] = useState(null);
   const [showError, setShowError] = useState(false);
   function onEmailChanged(email: string) {
     onChange(email);
     if (email.length > 0 && validator.validate(email)) {
+      valid(true);
       setError(null);
     } else {
+      valid(false);
       setError(`El ${label.toLowerCase()} no es válido`);
     }
   }
   return (
     <div className="mb-6">
-      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
         {label}
       </label>
       <input
@@ -35,15 +38,10 @@ export const InputEmail = (prop: Prop): JSX.Element => {
         onChange={(e) => onEmailChanged(e.target.value)}
         onBlur={() => setShowError(true)}
       />
-      {
-        showError && error
-            && (
-              <p className="text-red-500 text-xs italic">
-                {error}
-              </p>
-            )
+      <p className={`${showError && error ? '' : 'hidden'} text-red-500 text-xs italic`}>
+        {error}
+      </p>
 
-      }
     </div>
 
   );
