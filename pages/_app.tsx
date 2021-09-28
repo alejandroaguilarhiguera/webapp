@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../styles/globals.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Menu } from '../components';
+import { Menu, Navbar } from '../components';
 import { AuthService } from '../services/API';
 import { API_URL } from '../config';
 
@@ -46,8 +46,15 @@ axios.interceptors.response.use((response) => {
 function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <main>
-      <Menu />
-      <Component {...pageProps} />
+      <div className="bg-gray-100">
+        <Navbar />
+        <div className="flex h-screen">
+          <Menu />
+          <div>
+            <Component {...pageProps} />
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

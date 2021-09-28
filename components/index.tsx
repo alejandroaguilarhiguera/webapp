@@ -4,3 +4,4 @@ export * from './InputPassword';
 export * from './InputPhone';
 export * from './InputPhoneCode';
 export * from './Menu';
+export * from './Navbar';
